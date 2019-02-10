@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.zzt.provider.mapper.book.BookMapper">
+
+    <!--根据页面的startRows numbers 搜索书-->
+  <select id="selectBooksByMap" resultType="pojo.Book" parameterType="java.util.Map">
+      select * from books
+      <!-- 判断Map里是否有需要查询的参数   bookName book decsribe-->
+      <where>
+        <if test="_parameter.containsKey('bookName')">
+            and book_name like '${bookName}'
+        </if>
+        <if test="_parameter.containsKey('bookDescribe')">
+            and book_describe like '${bookDescribe}'
+        </if>
+          <if test="_parameter.containsKey('bookId')">
+              and book_id like '${bookId}'
+          </if>
+      </where>
+      limit ${startRows},${members}
+  </select>
+    
+
+
+</mapper>

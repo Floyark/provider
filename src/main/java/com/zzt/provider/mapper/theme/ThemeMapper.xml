@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzt.provider.mapper.theme.ThemeMapper">
+    <select id="getAllTheme" resultType="pojo.Themes">
+        select * from themes
+    </select>
+
+    <!--。。。。。。。。。。。。。存储过程 将数据theme参数循环插入到数据库中。。。。。。。。。。。。。-->
+    <insert id="insertThemes" parameterMap="insertThemesMap" statementType="CALLABLE">
+        call insert_themes(#{fileName},#{filePath})
+    </insert>
+    <parameterMap id="insertThemesMap" type="java.util.Map">
+        <parameter property="fileName" mode="IN" jdbcType="CHAR"></parameter>
+        <parameter property="filePath" mode="IN" jdbcType="CHAR"></parameter>
+    </parameterMap>
+    <!--。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。-->
+
+
+
+    <delete id="deleteThemes">
+        delete from themes
+    </delete>
+
+
+    <select id="getTotals" resultType="java.lang.Integer">
+        select count(*) form themes
+    </select>
+</mapper>
